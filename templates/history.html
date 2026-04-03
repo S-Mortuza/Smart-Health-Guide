@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-header">📅 My Health Journey</div>
+    <div class="card-body">
+        {% if assessments %}
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <thead>
+                <tr style="background: var(--bg-dark); color: var(--primary);">
+                    <th style="padding: 12px; text-align: left;">Date</th>
+                    <th style="padding: 12px; text-align: left;">BMI</th>
+                    <th style="padding: 12px; text-align: left;">Weight</th>
+                    <th style="padding: 12px; text-align: left;">Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for test in assessments %}
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 12px;">{{ test.date.strftime('%d-%b-%Y') }}</td>
+                    <td style="padding: 12px;">{{ "%.2f"|format(test.bmi) }}</td>
+                    <td style="padding: 12px;">{{ test.weight }} kg</td>
+                    <td style="padding: 12px;">
+                        <span style="font-weight: bold; color: var(--accent);">{{ test.prediction }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <div style="text-align: center; padding: 2rem;">
+                <p style="font-size: 1.2rem; color: var(--text-muted);">No history found yet.</p>
+                <a href="/" class="btn btn-primary">Start First Assessment</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

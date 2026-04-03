@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card" style="border-top: 5px solid var(--warning);">
+    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+        <span>🛠️ Admin Dashboard - User Management</span>
+        <span style="font-size: 0.9rem; background: var(--bg-body); padding: 5px 10px; border-radius: 20px; color: var(--text-secondary);">
+            Total Users: {{ users|length }}
+        </span>
+    </div>
+    
+    <div class="card-body">
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+                <thead>
+                    <tr style="background: var(--bg-dark); color: var(--text-primary); text-align: left;">
+                        <th style="padding: 15px; border-bottom: 2px solid var(--border);">ID</th>
+                        <th style="padding: 15px; border-bottom: 2px solid var(--border);">User Info</th>
+                        <th style="padding: 15px; border-bottom: 2px solid var(--border);">Contact</th>
+                        <th style="padding: 15px; border-bottom: 2px solid var(--border);">Activity</th>
+                        <th style="padding: 15px; border-bottom: 2px solid var(--border); text-align: center;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr style="border-bottom: 1px solid var(--border); transition: background 0.3s;">
+                        <td style="padding: 15px; color: var(--text-secondary);">#{{ user.id }}</td>
+                        
+                        <td style="padding: 15px;">
+                            <div style="font-weight: 700; color: var(--primary);">{{ user.name }}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">Pass: {{ user.password }}</div>
+                        </td>
+                        
+                        <td style="padding: 15px;">
+                            <div style="margin-bottom: 4px;">📧 {{ user.email }}</div>
+                            <div style="color: var(--text-secondary);">📞 {{ user.phone }}</div>
+                        </td>
+                        
+                        <td style="padding: 15px;">
+                            <span style="background: rgba(16, 185, 129, 0.1); color: var(--success); padding: 4px 10px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;">
+                                {{ user.assessments|length }} Tests Taken
+                            </span>
+                        </td>
+                        
+                        <td style="padding: 15px; text-align: center;">
+                            <a href="/delete_user/{{ user.id }}" 
+                               onclick="return confirm('Are you sure you want to delete this user? All their data will be lost!');"
+                               style="background: rgba(239, 68, 68, 0.1); color: var(--danger); padding: 8px 15px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s;">
+                                🗑️ Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if users|length == 0 %}
+            <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                No other users found in the database.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

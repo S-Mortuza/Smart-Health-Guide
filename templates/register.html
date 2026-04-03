@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="max-width: 450px; margin: 40px auto;">
+    <div class="card" style="box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: none;">
+        
+        <div class="card-header" style="background: transparent; border-bottom: none; text-align: center; padding-top: 2rem;">
+            <div style="font-size: 3rem; margin-bottom: 10px;">🚀</div>
+            <h2 style="color: var(--primary); font-weight: 800; margin: 0;">Create Account</h2>
+            <p style="color: var(--text-secondary); margin-top: 5px;">Join us to track your health journey</p>
+        </div>
+
+        <div class="card-body" style="padding: 2rem;">
+            
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: 600; border: 1px solid rgba(239, 68, 68, 0.2);">
+                        ⚠️ {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                <div class="form-group">
+                    <label class="form-label" style="font-weight: 600;">Full Name</label>
+                    <input 
+                        type="text" 
+                        name="name" 
+                        class="form-input" 
+                        required 
+                        placeholder="e.g. Sayeed Mortuza"
+                        style="padding: 12px; border-radius: 8px;"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" style="font-weight: 600;">Phone Number</label>
+                    <input 
+                        type="tel" 
+                        name="phone" 
+                        class="form-input" 
+                        required 
+                        placeholder="e.g. 017xxxxxxxx"
+                        pattern="[0-9]{11}"
+                        title="Please enter a valid 11-digit phone number"
+                        style="padding: 12px; border-radius: 8px;"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" style="font-weight: 600;">Email Address</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        class="form-input" 
+                        required 
+                        placeholder="name@example.com"
+                        autocomplete="email"
+                        style="padding: 12px; border-radius: 8px;"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" style="font-weight: 600;">Password</label>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        class="form-input" 
+                        required 
+                        placeholder="Enter a strong password"
+                        autocomplete="new-password"
+                        style="padding: 12px; border-radius: 8px;"
+                    >
+                </div>
+
+                <button 
+                    type="submit" 
+                    class="btn btn-primary" 
+                    style="width: 100%; margin-top: 15px; padding: 12px; font-size: 1.1rem; font-weight: 700; border-radius: 8px;"
+                >
+                    Sign Up Now
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border);">
+                <p style="color: var(--text-secondary); margin: 0;">
+                    Already have an account? 
+                    <a 
+                        href="{{ url_for('login') }}" 
+                        style="color: var(--primary); font-weight: 700; text-decoration: none; transition: color 0.3s;"
+                        onmouseover="this.style.color='var(--accent)'"
+                        onmouseout="this.style.color='var(--primary)'"
+                    >
+                        Login here
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
